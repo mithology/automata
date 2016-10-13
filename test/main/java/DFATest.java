@@ -29,8 +29,42 @@ public class DFATest {
     transition.insert("q2", "1", "q2");
 
     DFA dfa = new DFA(states, alphabets, initialState, transition, finalState);
-    Assert.assertEquals(true, dfa.isAccepted("01001"));
-    Assert.assertEquals(false, dfa.isAccepted("00110"));
+    Assert.assertEquals(true, dfa.isAccepted("01"));
+    Assert.assertEquals(true, dfa.isAccepted("11"));
+    Assert.assertEquals(true, dfa.isAccepted("1110001"));
+
+    Assert.assertEquals(false, dfa.isAccepted("0110"));
+
+  }
+
+  @Test
+  public void shouldCreateADFAThatContainsAnyNoOfOnes() throws Exception {
+    Set<String> alphabets = new HashSet<>();
+    alphabets.add("0");
+    alphabets.add("1");
+
+    Set<String> states = new HashSet<>();
+    states.add("q1");
+    states.add("q2");
+    states.add("q3");
+
+    String initialState = "q1";
+
+    Set<String> finalState = new HashSet<>();
+    finalState.add("q3");
+
+    Transition transition = new Transition();
+    transition.insert("q1", "0", "q2");
+    transition.insert("q1", "1", "q3");
+    transition.insert("q2", "1", "q3");
+    transition.insert("q2", "0", "q2");
+    transition.insert("q3", "0", "q3");
+    transition.insert("q3", "1", "q3");
+
+
+    DFA dfa = new DFA(states, alphabets, initialState, transition, finalState);
+    Assert.assertEquals(true, dfa.isAccepted("11"));
+    Assert.assertEquals(false, dfa.isAccepted("0"));
 
   }
 }
