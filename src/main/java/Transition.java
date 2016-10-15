@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Transition {
-  private Map<String, Map<String, String>> transitions = new HashMap<>();
+  private HashMap<String, Map<String, String>> transitions = new HashMap<String, Map<String, String>>();
 
 
   public void insert(String currentState, String alphabet, String nextState) {
     if (!transitions.containsKey(currentState))
-      transitions.put(currentState, new HashMap<>());
+      transitions.put(currentState, new HashMap<String, String>());
     transitions.get(currentState).put(alphabet, nextState);
   }
 
